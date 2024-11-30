@@ -2,6 +2,10 @@
 
 A machine learning system for predicting gaming account prices.
 
+### Best model path
+```
+models/trained/category_1_model.onnx
+```
 ## Project Structure
 ```
 ml_price_predictor/

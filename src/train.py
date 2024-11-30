@@ -26,7 +26,7 @@ def main():
     # Save model
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    model_path = output_dir / f"category_{args.category_id}_model.cbm"
+    model_path = output_dir / f"category_{args.category_id}_model"
     model.export(str(model_path))
 
 if __name__ == "__main__":

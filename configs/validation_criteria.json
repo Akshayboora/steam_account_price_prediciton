@@ -1,0 +1,6 @@
+{
+    "rmse_threshold": 100.0,
+    "mae_threshold": 50.0,
+    "r2_threshold": 0.7,
+    "pearson_threshold": 0.95
+}

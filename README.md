@@ -2,6 +2,15 @@
 
 A machine learning system for predicting gaming account prices.
 
+```
+Validation Results:
+mae: 16.40624585536192
+mse: 64902.81634689175
+rmse: 254.76031156145916
+r2: 0.9164106470883024
+pearson: 0.9573454741326366
+```
+
 ### Best model path
 ```
 models/trained/category_1_model.onnx

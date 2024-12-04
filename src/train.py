@@ -6,6 +6,9 @@ import json
 import pandas as pd
 from pathlib import Path
 from src.models.single_cat_model import SingleCategoryModel
+import warnings
+
+warnings.filterwarnings('ignore')
 
 def main():
     parser = argparse.ArgumentParser(description="Train category-specific model")

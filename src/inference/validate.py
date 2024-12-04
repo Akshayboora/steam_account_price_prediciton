@@ -4,6 +4,9 @@ import argparse
 import os
 import pandas as pd
 from src.models.single_cat_model import SingleCategoryModel
+import warnings
+
+warnings.filterwarnings('ignore')
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Validate a trained price prediction model')

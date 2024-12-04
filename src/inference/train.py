@@ -6,6 +6,9 @@ from datetime import datetime
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
+import warnings
+
+warnings.filterwarnings('ignore')
 
 from src.models.single_cat_model import SingleCategoryModel
 

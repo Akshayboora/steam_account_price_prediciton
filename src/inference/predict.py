@@ -7,6 +7,9 @@ import numpy as np
 from datetime import datetime
 from src.models.single_cat_model import SingleCategoryModel
 import onnxruntime as ort
+import warnings
+
+warnings.filterwarnings('ignore')
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Make predictions using a trained ONNX model')
@@ -33,6 +36,7 @@ def predict_with_onnx(session, X):
     output_name = session.get_outputs()[0].name
 
     predictions = session.run([output_name], {input_name: X.astype(np.float32)})[0]
+    predictions = np.clip(predictions.flatten(), 0, None)
     return predictions
 
 def main():
@@ -53,14 +57,15 @@ def main():
 
         # Load ONNX model and make predictions
         onnx_session = load_onnx_model(args.model_path)
-        predictions = predict_with_onnx(onnx_session, processed_data)
+        predictions = np.clip(predict_with_onnx(onnx_session, processed_data).flatten(), 0, None)
 
         # Save predictions
         results_df = pd.DataFrame({
             'id': category_df.index,
-            'predicted_price': predictions.flatten()
+            'predicted_price': predictions
         })
         results_df.to_csv(args.output_path, index=False)
+        print(f'\nSaved predictions csv to {args.output_path}\n')
 
     except Exception as e:
         print(f"Error during prediction: {str(e)}")

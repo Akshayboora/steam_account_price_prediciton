@@ -4,6 +4,9 @@
 import argparse
 from pathlib import Path
 from src.models.single_cat_model import SingleCategoryModel
+import warnings
+
+warnings.filterwarnings('ignore')
 
 def main():
     parser = argparse.ArgumentParser(description="Export model to ONNX")

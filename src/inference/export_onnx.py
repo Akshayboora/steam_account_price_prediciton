@@ -4,6 +4,9 @@ import argparse
 import os
 from src.models.single_cat_model import SingleCategoryModel
 from catboost import CatBoostRegressor
+import warnings
+
+warnings.filterwarnings('ignore')
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Export trained model to ONNX format')

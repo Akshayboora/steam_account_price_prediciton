@@ -10,6 +10,9 @@ from pathlib import Path
 import pandas as pd
 from catboost import CatBoostRegressor
 from src.models.single_cat_model import SingleCategoryModel
+import warnings
+
+warnings.filterwarnings('ignore')
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Fine-tune an existing ONNX model on new data')

@@ -11,6 +11,9 @@ import matplotlib.pyplot as plt
 from statsmodels.nonparametric.smoothers_lowess import lowess
 import seaborn as sns
 from scipy.stats import norm
+import warnings
+
+warnings.filterwarnings('ignore')
 
 class SingleCategoryModel:
     def __init__(self, category_number, params=None):
@@ -211,7 +214,7 @@ class SingleCategoryModel:
         df = self.preprocess_data(df)
         target_col = 'target' if 'target' in df.columns else 'sold_price'
         X_train = df.drop(columns=[target_col])
-        y_train = df[target_col]
+        y_train = df[target_col].astype(float)
 
         X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.15, random_state=42, shuffle=True)
 
@@ -230,7 +233,7 @@ class SingleCategoryModel:
             'X': X_train,
             'y': y_train,
             'eval_set': [(X_val, y_val)],
-            'verbose': False
+            'verbose': 250
         }
 
         self.meta_model.fit(**fit_params)
@@ -283,6 +286,7 @@ class SingleCategoryModel:
 
         # Generate predictions
         preds = self.meta_model.predict(X_val)
+        preds = np.clip(preds, 0, None)
 
         # Compute metrics
         mae = mean_absolute_error(y_val, preds)
@@ -382,4 +386,5 @@ class SingleCategoryModel:
             base_path = base_path[:-4]
         onnx_path = f"{base_path}.onnx"
         self.meta_model.save_model(onnx_path, format="onnx")
+        print(f'\nModel saved to {onnx_path}\n')
         return onnx_path

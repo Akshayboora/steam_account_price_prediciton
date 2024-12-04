@@ -24,8 +24,11 @@ class SingleCategoryModel:
             'grow_policy': 'SymmetricTree',
             'bootstrap_type': 'Bernoulli',
             #'eval_metric': UserDefinedMetric(penalty_factor=2.0),
-            'eval_metric': 'RMSE',
+            'eval_metric': 'MAE',
             'loss_function': UserDefinedObjective(penalty_factor=1.2),
+            'early_stopping_rounds': 25,
+            'iterations': 2000,
+            'use_best_model': True,
         }
         if params:
             base_params.update(params)
@@ -65,8 +68,11 @@ class SingleCategoryModel:
         base_params = {
             'grow_policy': 'SymmetricTree',
             'bootstrap_type': 'Bernoulli',
-            'eval_metric': 'RMSE',
+            'eval_metric': 'MAE',
             'loss_function': UserDefinedObjective(penalty_factor=1.2),
+            'early_stopping_rounds': 20,
+            'iterations': 2000,
+            'use_best_model': True,
         }
         model.meta_model = CatBoostRegressor(**base_params)
         model.meta_model.load_model(model_path, format='onnx')
